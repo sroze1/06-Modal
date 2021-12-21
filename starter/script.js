@@ -1,2 +1,15 @@
 'use strict';
-console.log('Testing the chnages that have been made onto this file');
+
+
+function showOrHide(state) { 
+    document.querySelector('.hidden').style.display = state;
+}
+
+document.querySelector('.show-modal').addEventListener('click', function () {
+  showOrHide("block");
+});
+
+document.querySelector('.close-modal').addEventListener('click', function () { 
+    showOrHide("none");
+});
+
