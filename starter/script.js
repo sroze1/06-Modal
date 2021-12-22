@@ -9,12 +9,12 @@ const buttonOpenModal = document.querySelectorAll('.show-modal');
 // Functions to change the state of the 'modal' and also the 'overlay'
 // This function allows both of the states to change at the same time, as
 // they will always be in syncronisation with each other and never seperate.
-function showOrHide(state) {
-  modal.style.display = state;
-  overlay.style.display = state;
-}
+// function showOrHide(state) {
+//   modal.style.display = state;
+//   overlay.style.display = state;
+// }
 
-// To select all of gthe other buttons to be affected,
+// To select all of the other buttons to be affected,
 // We must therefore have a for loop.. This brings us to the first limitation
 // of using the document.querySelector.. in that it can only select a single element
 // at any given time.
@@ -36,20 +36,43 @@ function showOrHide(state) {
 // To the variable we have created.
 // *Variable(class turned into a variable which selects ALL).addEventListener('click', function () { +code you wish to be performed on all of the code. });
 
+////////////////////////////
+////////////////////////////
+////////////////////////////
+////////////////////////////
+// NEW CODE
+
+const openModal = function () {
+  modal.classList.remove('hidden');
+  overlay.classList.remove('hidden');
+};
+const closeModal = function () {
+  modal.classList.add('hidden');
+  overlay.classList.add('hidden');
+};
+
+//Class lists have been used to open and close the modals.
+// This is apparently better than changing the state of the display class using the CSS manipulation as used earlier
+// (lol) and apparently saves repeating this step if there are many other classes without the hidden classes which we may need to hide
+// Either way it's more knowledge so I shouldn't let my ego get in the way of me learning.. I just learn something new again
+
+// Anyways, once you click the modal a function is performed
+
+// The function performed can be seen above, (openModal, closeModal)
+// This basically removes or adds the 'hidden' class from the classes we have selected
+// We do not need to use the ('.') dot when selecting the class.. as we are specifically only
+// highlighting a class list, there is no need for further specificty -- i.e we are using "classList" (duh?!)
+
+// This is then followed by the syntax of adding or removing depending on the function
+
+// To implement this function in our code what we have to do is basically add it to where the function would
+// Normally be after the eventListener we are using (in this example it's a click)
+// HOWEVER, we must not use the brackets as we normally do with anonymous functions (e.g addEventListener('click', function () {     }        ))
+// This is because otherwise the code will be immediately executed, and we only want to execute it when the click event is performed.. not just at all times!
+
 for (let i = 0; i < buttonOpenModal.length; i++) {
-  buttonCloseModal.addEventListener('click', function () {
-    showOrHide('none');
-  });
-  buttonOpenModal[i].addEventListener('click', function () {
-    showOrHide('block');
-  });
+  buttonOpenModal[i].addEventListener('click', openModal);
 }
 
-// Event listeners for the click function once the modal's have been clicked or unclicked.
-// document.querySelector('.show-modal').addEventListener('click', function () {
-//   showOrHide('block');
-// });
-
-// document.querySelector('.close-modal').addEventListener('click', function () {
-//   showOrHide('none');
-// });
+buttonCloseModal.addEventListener('click', closeModal);
+overlay.addEventListener('click', closeModal);
